@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+int main(void) {
+    long long total_days;
+    
+    /* Read total number of days (single integer) */
+    if (scanf("%lld", &total_days) != 1) {
+        return 0; // invalid input, exit quietly
+    }
+
+    if (total_days < 0) {
+        /* If negative input isn't expected, you can either treat it as 0
+           or handle as an error. Here we treat negative as 0 to avoid
+           unexpected negative modulo behaviour. */
+        total_days = 0;
+    }
+
+    long long years = total_days / 365;
+    long long rem   = total_days % 365;
+    long long weeks = rem / 7;
+    long long days  = rem % 7;
+
+    printf("Years: %lld\n", years);
+    printf("Weeks: %lld\n", weeks);
+    printf("Days: %lld\n", days);
+
+    return 0;
+}
