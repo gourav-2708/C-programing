@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <math.h> // for pow() function
+
+int main() {
+    double base, exponent, result;
+
+    // Read base and exponent
+    scanf("%lf %lf", &base, &exponent);
+
+    // Calculate power using pow()
+    result = pow(base, exponent);
+
+    // Print result (no decimals if whole number)
+    if (result == (long long)result) {
+        // If result is an integer, print without decimals
+        printf("%.0f\n", result);
+    } else {
+        // Otherwise print with 2 decimals
+        printf("%.2f\n", result);
+    }
+
+    return 0;
+}
