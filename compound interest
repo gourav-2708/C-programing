@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    int P, T;
+    float R, CI;
+    
+    // Input Principal, Rate, and Time
+    scanf("%d", &P);
+    scanf("%f", &R);
+    scanf("%d", &T);
+    
+    // Calculate Compound Interest: CI = P * (1 + R/100)^T - P
+    CI = P * pow(1 + R/100, T) - P;
+    
+    // Print result rounded to 2 decimal places
+    printf("%.2f\n", CI);
+    
+    return 0;
+}
