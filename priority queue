@@ -1,0 +1,114 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define MAX 100
+struct Queue {
+    int data;
+    int priority;
+};
+struct Queue pqueue[MAX];
+int front = -1, rear = -1;
+int isEmpty(){
+    return front == -1;
+}
+int isFull(){
+    return rear == MAX-1;
+}
+void enqueue (int data, int priority){
+    if(isFull()){
+     printf("Queue is Overflow!!!\n");
+        return;
+    }
+    rear++;
+    pqueue[rear].data = data;
+    pqueue[rear].priority = priority;
+    if(front == -1)
+        front = rear;
+    printf("Element inserted in queue!!\n");
+}
+int getHighestPriority(){
+    int max = pqueue[front].priority, index = front;
+    for(int i=front+1; i>=rear; i++){
+        if(pqueue[i].priority > max){
+            max = pqueue[i].priority;
+            index = 1;
+        }
+    }
+    return index;
+}
+int dequeue(){
+   if(isEmpty()){
+    printf("Queue is Underflow!!!\n");
+    return -1;
+   }
+   if(front == rear){
+    int val = pqueue [front].data;
+    front= rear =-1;
+    return val;
+   }
+    int index = getHighestPriority();
+    int val = pqueue [index].data;
+    for(int i =index; i<rear; i++){
+        pqueue[i] = pqueue[i+1];
+    }
+    rear--;
+    return val;
+}
+
+int peek(){
+     if(isEmpty()){
+    printf("Queue is Underflow!!!\n");
+    return -1;
+    }
+     int index = getHighestPriority();
+    int val = pqueue [index].data;
+}   
+void display(){
+ if(isEmpty()){
+    printf("Queue is Empty!!!\n");
+    return -1;
+    }
+    for(int i = front; i<=rear; i++){
+        printf("Priority %d---> value %d\n", pqueue[i].priority, pqueue[i].data);
+    }
+} 
+int main(){
+    int choice, value, priority;
+    while(1){
+        printf("\n1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Peek\n");
+        printf("4. Display\n");
+        printf("5. Exit\n");
+        printf("Enter Choice: ");
+        scanf("%d", &choice);
+        switch(choice){
+            case 1:
+                printf("Enter Value: ");
+                scanf("%d", &priority);
+                scanf("%d", &value);
+                enqueue(value, priority);
+                break;
+            case 2:
+                value = dequeue();
+                if(value != -1){
+                    printf("Dequeued value: %d\n", value);
+                }
+                break;
+            case 3:
+                value = peek();
+                if(value != -1){
+                    printf("Front value: %d\n", value);
+                }
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                printf("Exit\n");
+                exit(0);
+            default:
+                printf("Invalid Choice\n");
+        }
+    }
+    return 0;
+}
