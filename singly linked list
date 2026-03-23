@@ -1,0 +1,101 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct Node{
+    int data;
+    struct Node* next;
+};
+struct Node* head = Null;
+struct Node*createNode(int dat){
+struct NOde* temp = (struct Node*)malloc(sizeof(struct Node*));
+    temp->data = data;
+    temp->next = NULL;
+    return temp;
+}
+void insertNodeAtBeg(int data){
+    struct Node* newNode = createNode(data);
+    newNode->next = head;
+    head = newNode;
+    printf("Node inserted !!!\n");
+}
+void insertNodeAtEnd(int data){
+    struct Node*newNode = createNode(data);
+      if(head == NULL)
+        head = newNode;
+        else{
+        struct Node* temp = head;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->next = newNode;
+        printf("Node inserted at end!!!\n");
+    }
+}
+void displaylist(){
+    if(head == NULL)
+        printf("List is empty !!!\n");
+    else{
+        struct Node* temp = head;
+        while(temp != Null){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+    }
+}
+int main(){
+    int choice, data , pos;
+         while(1){
+            printf("/n***** Singly Linked List Menu *****\n");
+            printf("\n1. Insert in Beginning");
+            printf("\n2. Insert at End");
+            printf("\n3. Insert at Any Position");
+            printf("\n4. Delete from Beginning");
+            printf("\n5. Delete from End");
+            printf("\n6. Delete from Given Position");
+            printf("\n7. Display List");
+            printf("\n8. Search Element in List");
+            printf("\n9. Exit");
+
+            printf("\nEnter Choice: ");
+            scanf("%d", &choice);
+
+                switch (choice) {
+                    case 1:
+                        printf("Enter value: ");
+                        scanf("%d", &value);
+                        insertInBeg(value);
+                        break;
+                    case 2:
+                        printf("Enter value: ");
+                        scanf("%d", &value);
+                        insertAtEnd(value);
+                        break;
+                    case 3:
+                        printf("Enter value and position: ");
+                        scanf("%d %d", &value, &pos);
+                        insertAtPos(value, pos);
+                        break;
+                    case 4:
+                        deleteFromBeg();
+                        break;
+                    case 5:
+                        deleteFromEnd();
+                        break;
+                    case 6:
+                        printf("Enter position: ");
+                        scanf("%d", &pos);
+                        deleteFromPos(pos);
+                        break;
+                    case 7:
+                        display();
+                        break;
+                    case 8:
+                        printf("Enter value to search: ");
+                        scanf("%d", &value);
+                        search(value);
+                        break;
+                    case 9:
+                        return 0;
+                }
+         }
+}
+    
