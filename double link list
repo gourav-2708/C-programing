@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    struct Node* prev;
+    int data ;
+    struct Node* next;
+
+};
+struct Node* head = NULL, *tail = NULL;
+struct Node* createNode(int data){
+    struct Node* temp = (struct Node*)malloc(size of(structNode));
+    temp->data = data;
+    temp->prev = temp->next = NULL;
+    return temp;
+}
+void insertAtBeg(int data){
+    struct Node* newNode = createNde(data);
+    if(head == NULL){
+        head = tail = newNode;
+    }
+        esle{
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    printf("Node inserted !!!\n");
+}
+void insertAtEnd(int data){
+    struct Node* newNode = createNde(data);
+    if(tail == NULL)
+    head = tail = newNode;
+    else{
+        tail->next = newNode;
+        newNode->prev = tail;
+        tail=newNode;
+    }
+    printf("Node is inserted !!!\n");
+}
+void insertedNodeAtAnyPos(int data, int pos){
+    if(head = NULL)
+    printf("List is empty !!!\n");
+    else if(pos == 0)
+}
+    insertNodeAtBeg(data);
