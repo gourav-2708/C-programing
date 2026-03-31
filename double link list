@@ -1,6 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
-struct node{
+struct Node{
     struct Node* prev;
     int data ;
     struct Node* next;
@@ -8,17 +8,17 @@ struct node{
 };
 struct Node* head = NULL, *tail = NULL;
 struct Node* createNode(int data){
-    struct Node* temp = (struct Node*)malloc(size of(structNode));
+    struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
     temp->data = data;
     temp->prev = temp->next = NULL;
     return temp;
 }
 void insertAtBeg(int data){
-    struct Node* newNode = createNde(data);
+    struct Node* newNode = createNode(data);
     if(head == NULL){
         head = tail = newNode;
     }
-        esle{
+    else{
             newNode->next = head;
             head->prev = newNode;
             head = newNode;
@@ -26,9 +26,9 @@ void insertAtBeg(int data){
     printf("Node inserted !!!\n");
 }
 void insertAtEnd(int data){
-    struct Node* newNode = createNde(data);
+    struct Node* newNode = createNode(data);
     if(tail == NULL)
-    head = tail = newNode;
+        head = tail = newNode;
     else{
         tail->next = newNode;
         newNode->prev = tail;
@@ -38,7 +38,165 @@ void insertAtEnd(int data){
 }
 void insertedNodeAtAnyPos(int data, int pos){
     if(head = NULL)
-    printf("List is empty !!!\n");
+        printf("List is empty !!!\n");
     else if(pos == 0)
+        insertAtBeg(data);
+    else{
+        struct Node* temp = head;
+        int i = 0;
+        while(temp != NULL){
+            if(i == pos)
+            break;
+            temp = temp->next;
+            i++;
+        }
+        if(temp == NULL)
+            printf("Invalid position !!!\n");
+        else{
+            struct Node* newNode = createNode(data);
+            newNode->prev = temp->prev;
+            temp->prev->next = newNode;
+            newNode->next = temp;
+            temp->prev = newNode;
+            printf("Node inserted !!!!");
+        }
+    }
 }
-    insertNodeAtBeg(data);
+void deletefromtheBeg(){
+    if(head == NULL)
+        printf("Listy is empty !!!\n");
+    else if(head->next == NULL){
+        head = tail = NULL;
+        printf("Node deleted from begining!!!\n");
+    }
+    else{
+        head = head->next;
+        printf("Node deleted from the begining!!!\n");
+    }
+}
+void deleteNodeFromTheEnd(){
+    if(head == NULL)
+        printf("List is Empty !!!\n");
+    else if(head->next == NULL){
+        head = tail = NULL;
+        printf("Node deleted from the end !!!\n");
+    }
+    else{
+        struct Node* temp = head;
+        while(temp->next != NULL){
+            temp = temp->next;
+        }
+        temp->prev->next = NULL;
+        tail = temp->prev;
+        printf("Node deleted from the end !!!\n");
+    }
+}
+void deleteNodeAtAnyPos(int pos){
+    if(head == NULL)
+        printf("List is empty !!!\n");
+     else if(pos == 0)
+        deletefromtheBeg();
+     else{
+        struct Node* temp = head;
+        int i = 0;
+        while(temp != NULL){
+            if(i == pos)
+            break;
+            temp = temp->next;
+            i++;
+        }
+        if(temp == NULL)
+            printf("Invalid position !!!\n");
+        else{
+            temp->prev->next = temp->next;
+            if(temp->next != NULL)
+                temp->next->prev = temp->prev;
+            else
+                tail = temp->prev;
+            printf("Node deleted from position %d !!\n", pos);  
+        }
+     }
+}  
+void search(int val){
+    if(head == NULL)
+        printf("List is empty !!!\n");
+    else{
+        struct Node* temp = head;
+        while(temp != NULL){
+            if(val == temp->data){
+                printf("Found !!!\n");
+                return;
+            }
+            temp = temp->next;
+        }
+        printf("Not Found!!!\n");
+    }
+}
+void display(){
+    if(head == NULL)
+        printf("List is empty !!!\n");
+    else{
+        struct Node* temp = head;
+        while(temp != NULL){
+            printf("%d ", temp->data);
+            temp = temp->next;
+        }
+        printf("\n");
+    }
+}
+
+int main(){
+    int choice, value , pos;
+         while(1){
+            printf("/n***** doubly Linked List Menu *****\n");
+            printf("\n1. Insert in Beginning");
+            printf("\n2. Insert at End");
+            printf("\n3. Insert at Any Position");
+            printf("\n4. Delete from Beginning");
+            printf("\n5. Delete from End");
+            printf("\n6. Delete from Any Position");
+            printf("\n7. Display List");
+            printf("\n8. Search Element in List");
+            printf("\n9. Exit");
+            printf("\nEnter Choice: ");
+            scanf("%d", &choice);
+                switch (choice) {
+                    case 1:
+                        printf("Enter value: ");
+                        scanf("%d", &value);
+                        insertAtBeg(value);
+                        break;
+                    case 2:
+                        printf("Enter value: ");
+                        scanf("%d", &value);
+                        insertAtEnd(value);
+                        break;
+                    case 3:
+                        printf("Enter value and position: ");
+                        scanf("%d %d", &value, &pos);
+                        insertedNodeAtAnyPos(value, pos);
+                        break;
+                    case 4:
+                        deletefromtheBeg();
+                        break;
+                    case 5:
+                        deleteNodeFromTheEnd();
+                        break;
+                    case 6:
+                        printf("Enter position: ");
+                        scanf("%d", &pos);
+                        deleteNodeAtAnyPos(pos);
+                        break;
+                    case 7:
+                        display();
+                        break;
+                    case 8:
+                        printf("Enter value to search: ");
+                        scanf("%d", &value);
+                        search(value);
+                        break;
+                    case 9:
+                        return 0;
+                }
+         }
+}
