@@ -2,13 +2,16 @@
 #include<stdlib.h>
 struct Node{
     int data;
+    int priority;
     struct Node* next;
 };
 struct Node *front = NULL, *rear = NULL;
-int enqueue(int data){
+void enqueue(int data, int priority){
   struct Node* temp = (struct Node*)malloc(sizeof(struct Node));
-  if(temp == NULL)
+  if(temp == NULL){
     printf("Queue Overflow !!!\n");
+    return;
+}
     else{
         temp->data = data;
         temp->priority = priority;
@@ -22,14 +25,65 @@ int enqueue(int data){
         }
         printf("%d added into the queue !!!\n", data);
     }
+
+}
+struct Node* getHighestPriority(){
+    struct Node* curr = front, *prev=NULL, *temp = NULL;
+    int max = 0;
+    while(curr != NULL){
+        if(curr->priority > max){
+            max = curr->priority;
+            temp = prev;
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+    return temp;
 }
 int dequeue(){
-  
+  if(front == NULL && rear == NULL){
+    printf("Queue underflow !!!\n");
+    return -1;
+    }
+  else if(front == rear){
+    int val = front->data;
+    front = rear = NULL;
+    return val;
+  }
+  else{
+    struct Node* temp = getHighestPriority();
+    int val;
+    if(temp == NULL){
+       val = front->data;
+       front = front->next;
+    }
+        else{
+            val = temp->next->data;
+            temp->next = temp->next->next;
+        }
+        return val;
+  }
 }
 int peek(){
-  
+   if(front == NULL && rear == NULL){
+    printf("Queue underflow !!!\n");
+    return -1;
+    }
+  else if(front == rear){
+   return front->data;
+  }
+  else{
+    struct Node* temp = getHighestPriority();
+    int val;
+    if(temp == NULL){
+       val = front->data;
+    }
+        else{
+            val = temp->next->data;
+        }
+        return val;
+  }
 }
-
 void display(){
    if(front == NULL && rear == NULL)
     printf("Queue is empty !!!\n");
@@ -42,7 +96,7 @@ void display(){
     printf("\n");
 }
 int main(){
-    int choice, value, res;
+    int choice, value, res, priority;
     while(1){
         printf("\n1. Enqueue\n");
         printf("2. Dequeue\n");
@@ -55,7 +109,9 @@ int main(){
             case 1:
                 printf("Enter the value to Enqueue: ");
                 scanf("%d", &value);
-                enqueue(value);
+                printf("Enter priority: ");
+                scanf("%d", &priority);
+                enqueue(value, priority);
                 break;
             case 2:
                 value = dequeue();
